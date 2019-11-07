@@ -1,38 +1,17 @@
-// Image switcher code
+document.querySelector("#blinds_up_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#blinds_stop_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#blinds_down_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#bedroom_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#livingroom_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#kitchen_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#dining_button").onclick = function (event) {sendGetCall(event.target);};
+document.querySelector("#patio_button").onclick = function (event) {sendGetCall(event.target);};
 
-let myImage = document.querySelector('img');
-
-myImage.onclick = function() {
-  let mySrc = myImage.getAttribute('src');
-  if(mySrc === 'images/firefox-icon.png') {
-    myImage.setAttribute ('src','images/firefox2.png');
-  } else {
-    myImage.setAttribute ('src','images/firefox-icon.png');
-  }
-}
-
-// Personalized welcome message code
-
-let myButton = document.querySelector('button');
-let myHeading = document.querySelector('h1');
-
-function setUserName() {
-  let myName = prompt('Please enter your name.');
-  if(!myName || myName === null) {
-    setUserName();
-  } else {
-    localStorage.setItem('name', myName);
-    myHeading.innerHTML = 'Mozilla is cool, ' + myName;
-  }
-}
-
-if(!localStorage.getItem('name')) {
-  setUserName();
-} else {
-  let storedName = localStorage.getItem('name');
-  myHeading.innerHTML = 'Mozilla is cool, ' + storedName;
-}
-
-myButton.onclick = function() {
-  setUserName();
+function sendGetCall(target) {
+  let parameter = target.getAttribute("destination");
+  var getUrl = window.location;
+  var baseUrl = getUrl.protocol + "//" + getUrl.host;
+  var request = new XMLHttpRequest();
+  request.open('GET', baseUrl+"/api/rest/Remote/Electronics/"+parameter+"/uart", true);
+  request.send();
 }
